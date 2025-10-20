@@ -73,7 +73,7 @@ const Home = () => {
       id: 1,
       name: "All-Purpose Cleaner",
       description: "Versatile cleaner for all surfaces",
-      price: "$12.99",
+      price: "R12.99",
       image: "https://images.unsplash.com/photo-1583947215259-38e31be8751f?w=400&h=400&fit=crop",
       badge: "Best Seller"
     },
@@ -81,7 +81,7 @@ const Home = () => {
       id: 2,
       name: "Glass & Mirror Cleaner",
       description: "Streak-free shine for glass surfaces",
-      price: "$10.99",
+      price: "R10.99",
       image: "https://images.unsplash.com/photo-1600428296753-7ff689d9f5b6?w=400&h=400&fit=crop",
       badge: "New"
     },
@@ -89,7 +89,7 @@ const Home = () => {
       id: 3,
       name: "Bathroom Cleaner",
       description: "Powerful formula for tough bathroom stains",
-      price: "$14.99",
+      price: "R14.99",
       image: "https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=400&h=400&fit=crop",
       badge: "Popular"
     },
@@ -97,7 +97,7 @@ const Home = () => {
       id: 4,
       name: "Floor Cleaner",
       description: "Gentle on floors, tough on dirt",
-      price: "$16.99",
+      price: "R16.99",
       image: "https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&h=400&fit=crop",
       badge: "Eco+"
     }

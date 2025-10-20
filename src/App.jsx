@@ -13,6 +13,7 @@ import Cart from './components/users/Cart';
 import Products from './pages/users/Products';
 import Wishlist from './pages/users/WishList';
 import Profile from './pages/auth/Profile';
+import Checkout from './pages/users/CheckOut';
 
 // Component to redirect users based on their role
 const RoleBasedRedirect = () => {
@@ -95,6 +96,14 @@ function App() {
               element={
                 <ProtectedRoutes>
                   <Profile />
+                </ProtectedRoutes>
+              } 
+            />
+            <Route 
+              path="/checkout" 
+              element={
+                <ProtectedRoutes>
+                  <Checkout />
                 </ProtectedRoutes>
               } 
             />
