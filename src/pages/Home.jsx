@@ -82,7 +82,7 @@ const Home = () => {
       name: "Glass & Mirror Cleaner",
       description: "Streak-free shine for glass surfaces",
       price: "R10.99",
-      image: "https://images.unsplash.com/photo-1600428296753-7ff689d9f5b6?w=400&h=400&fit=crop",
+      image: "/public/troy-bridges-nF4Xl7SD9vw-unsplash.jpg",
       badge: "New"
     },
     {
