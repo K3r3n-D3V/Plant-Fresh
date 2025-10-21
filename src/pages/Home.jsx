@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Sparkles, Shield, Leaf, Heart, TrendingUp, Award, ShoppingCart, Check } from 'lucide-react';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
+import image from '/public/troy-bridges-nF4Xl7SD9vw-unsplash'
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -82,7 +83,7 @@ const Home = () => {
       name: "Glass & Mirror Cleaner",
       description: "Streak-free shine for glass surfaces",
       price: "R10.99",
-      image: "/public/troy-bridges-nF4Xl7SD9vw-unsplash.jpg",
+      image: {image},
       badge: "New"
     },
     {
