@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, ChevronLeft, Sparkles, Shield, Leaf, Heart, TrendingUp, Award, ShoppingCart, Check } from 'lucide-react';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
-import image from '/public/troy-bridges-nF4Xl7SD9vw-unsplash'
+// import image from '../assets/troy-bridges-nF4Xl7SD9vw-unsplash.jpg';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -83,7 +83,7 @@ const Home = () => {
       name: "Glass & Mirror Cleaner",
       description: "Streak-free shine for glass surfaces",
       price: "R10.99",
-      image: {image},
+      image: 'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: "New"
     },
     {

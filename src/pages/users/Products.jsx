@@ -4,7 +4,9 @@ import Navbar from '../../components/common/Navbar';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
 import { useNavigate } from 'react-router-dom';
-import image from '/public/troy-bridges-nF4Xl7SD9vw-unsplash'
+import image from "../../assets/troy-bridges-nF4Xl7SD9vw-unsplash.jpg";
+
+
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -109,7 +111,7 @@ const products = [
       price: '15.99',
       rating: 4.7,
       reviews: 156,
-      image: {image},
+      image: 'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: 'New',
       badgeColor: 'bg-green-400',
       features: ['Industrial strength', 'Fast-acting', 'Biodegradable'],
@@ -159,7 +161,7 @@ const products = [
       price: '14.99',
       rating: 4.7,
       reviews: 167,
-      image: {image},
+      image: 'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: 'Top Rated',
       badgeColor: 'bg-blue-400',
       features: ['Fingerprint-free', 'Protective coating', 'Professional grade'],
@@ -210,7 +212,7 @@ const products = [
       price: '19.99',
       rating: 4.8,
       reviews: 523,
-      image:{image},
+      image:'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: 'Best Seller',
       badgeColor: 'bg-yellow-400',
       features: ['Pre-measured', 'Cold water formula', 'Concentrated power'],
@@ -260,7 +262,7 @@ const products = [
       price: '7.99',
       rating: 4.5,
       reviews: 312,
-      image: {image},
+      image: 'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: null,
       features: ['Portable', 'Instant action', 'Works on most fabrics'],
       description: 'On-the-go stain solution'
@@ -310,7 +312,7 @@ const products = [
       price: '12.99',
       rating: 4.6,
       reviews: 234,
-      image: {image},
+      image: 'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: null,
       features: ['Restores color', 'Prevents mold', 'Easy application'],
       description: 'Brightens and protects grout'
@@ -359,7 +361,7 @@ const products = [
       price: '24.99',
       rating: 4.9,
       reviews: 78,
-      image: {image},
+      image:'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: 'Premium',
       badgeColor: 'bg-purple-400',
       features: ['Cleans & conditions', 'UV protection', 'Restores shine'],
@@ -410,7 +412,7 @@ const products = [
       price: '18.99',
       rating: 4.6,
       reviews: 67,
-      image: {image},
+      image:'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: null,
       features: ['Restores shine', 'Protective coating', 'Easy to use'],
       description: 'Brings copper back to life'
@@ -460,7 +462,7 @@ const products = [
       price: '8.99',
       rating: 4.6,
       reviews: 223,
-      image: {image},
+      image: 'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: null,
       features: ['Streak-free', 'Anti-static', 'Safe for all screens'],
       description: 'Crystal clear screens'
@@ -509,7 +511,7 @@ const products = [
       price: '11.99',
       rating: 4.9,
       reviews: 312,
-      image: {image},
+      image: 'https://images.unsplash.com/photo-1550963295-019d8a8a61c5?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687',
       badge: 'Family Safe',
       badgeColor: 'bg-blue-400',
       features: ['Non-toxic', 'Hypoallergenic', 'Gentle formula'],
