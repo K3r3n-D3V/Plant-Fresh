@@ -3,6 +3,7 @@ import { Search, ShoppingCart, Star, Heart, Sparkles, Droplet, Wind, Shield, Lea
 import Navbar from '../../components/common/Navbar';
 import { useCart } from '../../context/CartContext';
 import { useWishlist } from '../../context/WishlistContext';
+import { useNavigate } from 'react-router-dom';
 
 const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -10,6 +11,7 @@ const Products = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { addToWishlist, removeFromWishlist, isInWishlist, getWishlistCount } = useWishlist();
   const { addToCart, getCartCount } = useCart();
+  const navigate = useNavigate();
   
   const showNotification = (message) => {
     const notification = document.createElement('div');
@@ -37,6 +39,10 @@ const Products = () => {
       addToWishlist(product);
       showNotification(`${product.name} added to wishlist!`);
     }
+  };
+
+    const handleBackClick = () => {
+    navigate('/contact'); 
   };
 
   const categories = [
@@ -731,7 +737,7 @@ const Products = () => {
             Our cleaning experts are here to help you find the perfect products
           </p>
           <button 
-            onClick={() => window.location.href = '/contact'}
+            onClick={handleBackClick}
             className="bg-white text-emerald-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-105"
           >
             Contact Us

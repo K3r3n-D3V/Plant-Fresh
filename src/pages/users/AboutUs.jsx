@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles, Award, Users, Heart, ArrowLeft, Menu, X, ShoppingCart, Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const AboutUs = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const testimonials = [
     {
@@ -85,6 +87,14 @@ const AboutUs = () => {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  const handleBackClick = () => {
+    navigate(-1); // Go back to previous page
+  };
+
+  const handleShopNow = () => {
+    navigate('/home'); // Navigate to home page
+  };
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -92,7 +102,7 @@ const AboutUs = () => {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <button 
-            onClick={() => window.location.href = '/home'}
+            onClick={handleBackClick}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -281,7 +291,10 @@ const AboutUs = () => {
           <p className="text-xl text-white mb-8">
             Join thousands of satisfied customers who've made the switch to cleaner, greener cleaning.
           </p>
-          <button onClick={() => window.location.href = '/home'} className="bg-white text-emerald-600 px-10 py-4 font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl rounded-full hover:cursor-pointer hover:scale-105">
+          <button 
+            onClick={handleShopNow}
+            className="bg-white text-emerald-600 px-10 py-4 font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-xl rounded-full hover:cursor-pointer hover:scale-105"
+          >
             Shop Now
           </button>
         </div>
