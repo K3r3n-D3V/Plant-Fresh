@@ -38,27 +38,15 @@ function App() {
             {/* Public routes */}
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/blogs" element={<Blogs />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/products" element={<Products />} />
             
             {/* Default route redirects based on auth status */}
             <Route path="/" element={<RoleBasedRedirect />} />
             
             {/* Protected routes - require authentication */}
-            <Route 
-              path="/blogs" 
-              element={
-                <ProtectedRoutes>
-                  <Blogs />
-                </ProtectedRoutes>
-              } 
-            />
-            <Route 
-              path="/contact" 
-              element={
-                <ProtectedRoutes>
-                  <ContactUs />
-                </ProtectedRoutes>
-              } 
-            />
             <Route 
               path="/about" 
               element={
