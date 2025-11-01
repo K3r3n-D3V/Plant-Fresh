@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles, Award, Users, Heart, ArrowLeft, Menu, X, ShoppingCart, Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/common/Navbar';
 
 const AboutUs = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const testimonials = [
@@ -87,28 +87,14 @@ const AboutUs = () => {
     setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
-  const handleBackClick = () => {
-    navigate(-1); // Go back to previous page
-  };
-
   const handleShopNow = () => {
     navigate('/home'); // Navigate to home page
   };
 
   return (
     <div className="min-h-screen bg-white">
-
-      {/* Back Navigation */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button 
-            onClick={handleBackClick}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Back</span>
-          </button>
-        </div>
+    <Navbar />
       </div>
 
       {/* Hero Section */}

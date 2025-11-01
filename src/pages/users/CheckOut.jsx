@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { usePaystackPayment } from 'react-paystack';
 import { CreditCard, ShoppingBag, Lock, Truck, ChevronRight, User, Shield, ArrowLeft, Package, CheckCircle } from 'lucide-react';
 
 export default function CheckoutPage() {
@@ -48,6 +49,37 @@ export default function CheckoutPage() {
   const total = subtotal + shipping + tax;
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Paystack configuration
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: formData.email || 'customer@example.com',
+    amount: Math.round(total * 100), // Convert to kobo (multiply by 100)
+    publicKey: 'pk_test_your_public_key_here', // Replace with your actual public key
+    currency: 'ZAR',
+    metadata: {
+      custom_fields: [
+        {
+          display_name: "First Name",
+          variable_name: "first_name",
+          value: formData.firstName
+        },
+        {
+          display_name: "Last Name",
+          variable_name: "last_name",
+          value: formData.lastName
+        },
+        {
+          display_name: "Shipping Address",
+          variable_name: "shipping_address",
+          value: formData.address
+        }
+      ]
+    }
+  };
+
+  // Initialize Paystack payment
+  const initializePayment = usePaystackPayment(config);
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -56,13 +88,42 @@ export default function CheckoutPage() {
     }));
   };
 
+  // Paystack success callback
+  const onSuccess = (reference) => {
+    setIsProcessing(false);
+    setShowSuccessModal(true);
+    console.log('Payment successful!', reference);
+    
+    // Here you can send the payment reference to your backend
+    // to verify the payment and update order status
+  };
+
+  // Paystack close callback
+  const onClose = () => {
+    setIsProcessing(false);
+    console.log('Payment modal closed');
+    alert('Payment was cancelled. You can try again.');
+  };
+
   const handleSubmit = () => {
+    // Basic form validation
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.address) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    if (selectedPayment === 'paypal') {
+      // Handle PayPal integration separately
+      alert('PayPal integration would go here');
+      return;
+    }
+
     setIsProcessing(true);
     
-    setTimeout(() => {
-      setIsProcessing(false);
-      setShowSuccessModal(true);
-    }, 2000);
+    // For Paystack (card payments)
+    if (selectedPayment === 'card') {
+      initializePayment(onSuccess, onClose);
+    }
   };
 
   return (
@@ -111,7 +172,7 @@ export default function CheckoutPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">First Name *</label>
                   <input 
                     type="text" 
                     name="firstName"
@@ -119,10 +180,11 @@ export default function CheckoutPage() {
                     onChange={handleInputChange}
                     placeholder="John"
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white"
+                    required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Last Name *</label>
                   <input 
                     type="text" 
                     name="lastName"
@@ -130,10 +192,11 @@ export default function CheckoutPage() {
                     onChange={handleInputChange}
                     placeholder="Doe"
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white"
+                    required
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
                   <input 
                     type="email" 
                     name="email"
@@ -141,6 +204,7 @@ export default function CheckoutPage() {
                     onChange={handleInputChange}
                     placeholder="john.doe@example.com"
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white"
+                    required
                   />
                 </div>
               </div>
@@ -157,7 +221,7 @@ export default function CheckoutPage() {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Address</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Address *</label>
                   <input 
                     type="text" 
                     name="address"
@@ -165,6 +229,7 @@ export default function CheckoutPage() {
                     onChange={handleInputChange}
                     placeholder="123 Main Street"
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white"
+                    required
                   />
                 </div>
                 <div>
@@ -217,7 +282,7 @@ export default function CheckoutPage() {
                     {selectedPayment === 'card' && <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>}
                   </div>
                   <CreditCard size={22} className="text-gray-600" />
-                  <span className="font-semibold text-gray-800">Credit Card</span>
+                  <span className="font-semibold text-gray-800">Pay with Paystack</span>
                 </div>
 
                 <div 
@@ -238,54 +303,16 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* Card Details */}
+              {/* Paystack Info */}
               {selectedPayment === 'card' && (
-                <div className="space-y-4 border-t pt-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Card Number</label>
-                    <input 
-                      type="text" 
-                      name="cardNumber"
-                      value={formData.cardNumber}
-                      onChange={handleInputChange}
-                      placeholder="1234 5678 9012 3456"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white"
-                    />
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Shield className="text-blue-600" size={18} />
+                    <span className="font-semibold text-blue-800">Secure Payment by Paystack</span>
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">Expiry Date</label>
-                      <input 
-                        type="text" 
-                        name="expiryDate"
-                        value={formData.expiryDate}
-                        onChange={handleInputChange}
-                        placeholder="MM/YY"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">CVV</label>
-                      <input 
-                        type="text" 
-                        name="cvv"
-                        value={formData.cvv}
-                        onChange={handleInputChange}
-                        placeholder="123"
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition bg-white"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3 pt-2">
-                    <input 
-                      type="checkbox" 
-                      name="savePayment"
-                      checked={formData.savePayment}
-                      onChange={handleInputChange}
-                      className="w-5 h-5 text-emerald-600 rounded focus:ring-emerald-500 border-gray-300 cursor-pointer"
-                    />
-                    <label className="text-sm font-medium text-gray-700 cursor-pointer">Save payment method for future purchases</label>
-                  </div>
+                  <p className="text-sm text-blue-700">
+                    You'll be redirected to Paystack's secure payment page to complete your transaction.
+                  </p>
                 </div>
               )}
             </div>
@@ -353,7 +380,7 @@ export default function CheckoutPage() {
                   </>
                 ) : (
                   <>
-                    Proceed to Checkout
+                    Pay with Paystack
                     <ChevronRight size={20} />
                   </>
                 )}
@@ -386,6 +413,25 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
+
+      {/* Success Modal */}
+      {showSuccessModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full text-center">
+            <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Payment Successful!</h3>
+            <p className="text-gray-600 mb-6">
+              Thank you for your purchase. Your order has been confirmed and will be shipped soon.
+            </p>
+            <button
+              onClick={() => setShowSuccessModal(false)}
+              className="w-full bg-emerald-500 text-white py-3 rounded-xl font-semibold hover:bg-emerald-600 transition-colors"
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

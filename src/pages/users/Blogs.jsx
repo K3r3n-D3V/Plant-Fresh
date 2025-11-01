@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Calendar, Clock, User, ChevronRight, TrendingUp, Bookmark, ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/common/Navbar';
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentFeatured, setCurrentFeatured] = useState(0);
-  const navigate = useNavigate();
   const categories = [
     { id: 'all', name: 'All Posts', count: 24 },
     { id: 'tips', name: 'Cleaning Tips', count: 12 },
@@ -163,24 +162,10 @@ const Blog = () => {
     return () => clearInterval(timer);
   }, []);
 
-    const handleBackClick = () => {
-    navigate(-1); // Go back to previous page
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
-      {/* Back Navigation */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button 
-            onClick={handleBackClick}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span className="font-medium">Back</span>
-          </button>
-        </div>
-      </div>
+      <Navbar />
 
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-green-600 via-green-500 to-emerald-600 text-white overflow-hidden">
