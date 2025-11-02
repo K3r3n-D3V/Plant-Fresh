@@ -88,7 +88,7 @@ const AboutUs = () => {
   };
 
   const handleShopNow = () => {
-    navigate('/home'); // Navigate to home page
+    navigate('/home');
   };
 
   return (
